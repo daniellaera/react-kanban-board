@@ -27,7 +27,7 @@ const Comments = () => {
 			userId: localStorage.getItem("userId"),
 		});
 		setComment("");
-		navigate("/task");
+		//navigate("/task");
 	};
 
 	return (

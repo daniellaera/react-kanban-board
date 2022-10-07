@@ -10,7 +10,8 @@ const Nav = () => {
 	const navigate = useNavigate();
 
 	const onNotificationClick = (notification) =>
-	navigate(notification.cta.data.url);
+	navigate(`/comments/${notification.payload.category}/${notification.payload.id}`);
+
 	return (
 		<nav className='navbar'>
 			<h3>Team's todo list</h3>
@@ -21,7 +22,7 @@ const Nav = () => {
 				>
 					<PopoverNotificationCenter
 						onNotificationClick={onNotificationClick}
-						colorScheme='light'
+						colorScheme='dark'
 					>
 						{({ unseenCount }) => (
 							<NotificationBell unseenCount={unseenCount} />

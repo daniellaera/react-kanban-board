@@ -78,7 +78,7 @@ const sendNotification = async (user) => {
  	}
  };
 
- const sendCommentNotification = async (user, comment) => {
+ const sendCommentNotification = async (user, comment, category, id) => {
 	try {
 	 const result = await novu.trigger("comment-template", {
 		 to: {
@@ -86,7 +86,9 @@ const sendNotification = async (user) => {
 		 },
 		 payload: {
 			 userId: user,
-			 comment: comment
+			 comment: comment,
+			 category: category,
+			 id: id
 		 },
 	 });
 	 console.log(result);
@@ -145,8 +147,9 @@ socketIO.on("connection", (socket) => {
 				});
 				socket.emit("comments", taskItems[i].comments);
 				console.log('data from comment->', data)
+				socket.broadcast.emit('commentBroadcasted', data)
 				// 👇🏻 sends notification via Novu
-				sendCommentNotification(data.userId, data.comment);
+				sendCommentNotification(data.userId, data.comment, data.category, data.id);
 			}
 		}
 	});
